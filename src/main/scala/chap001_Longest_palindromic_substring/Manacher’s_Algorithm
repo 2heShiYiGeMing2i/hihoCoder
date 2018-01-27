@@ -13,7 +13,7 @@ int Manacher(string s) {
     }
     // Process t
     vector<int> p(t.size(), 0);
-    int mx = 0, id = 0, resLen = 0, resCenter = 0;
+    int mx = 0, id = 0, resLen = 0;
     for (int i = 1; i < t.size(); ++i) {
         p[i] = mx > i ? min(p[2 * id - i], mx - i) : 1;
         while (t[i + p[i]] == t[i - p[i]]) ++p[i];
@@ -23,7 +23,10 @@ int Manacher(string s) {
         }
         if (resLen < p[i]) {
             resLen = p[i];
-            resCenter = i;
+        }
+        if (resLen - 1 == s.size())
+        {
+            return resLen - 1;
         }
     }
     return resLen - 1;
